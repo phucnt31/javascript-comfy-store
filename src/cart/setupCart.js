@@ -77,6 +77,18 @@ const removeItems = (id) => {
   cart = cart.filter((cartItem) => cartItem.id !== id);
 };
 
+const decreaseAmount = (id) => {
+  let newAmount;
+  cart = cart.map((cartItem) => {
+    if (cartItem.id === id) {
+      newAmount = cartItem.amount - 1;
+      cartItem = { ...cartItem, amount: newAmount };
+    }
+    return cartItem;
+  });
+  return newAmount;
+};
+
 const setupCartFunctionality = () => {
   cartItemsDOM.addEventListener("click", (e) => {
     const element = e.target;
@@ -95,6 +107,13 @@ const setupCartFunctionality = () => {
       parent.nextElementSibling.textContent = newAmount;
     }
     // decrease
+    if (parent.classList.contains("cart-item-decrease-btn")) {
+      const newAmount = decreaseAmount(parentID);
+      if (newAmount === 0) {
+        removeItems(id);
+        parent.parentElement.parentElement.remove();
+      } else parent.previousElementSibling.textContent = newAmount;
+    }
 
     displayCartItemCount();
     displayCartTotal();

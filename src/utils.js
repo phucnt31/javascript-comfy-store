@@ -8,6 +8,13 @@ const getElement = (selection) => {
   );
 };
 
+const formatPrice = (price) => {
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+  }).format((price / 100).toFixed(2));
+};
+
 const getStorageItem = (item) => {
   let storageItem = localStorage.getItem(item);
   if (storageItem) {
@@ -20,4 +27,10 @@ const setStorageItem = (name, item) => {
   localStorage.setItem(name, JSON.stringify(item));
 };
 
-export { getElement, allProductsUrl, getStorageItem, setStorageItem };
+export {
+  getElement,
+  allProductsUrl,
+  getStorageItem,
+  setStorageItem,
+  formatPrice,
+};

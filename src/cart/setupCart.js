@@ -73,7 +73,30 @@ const increaseAmount = (id) => {
   return newAmount;
 };
 
-const setupCartFunctionality = () => {};
+const removeItems = (id) => {
+  cart = cart.filter((cartItem) => cartItem.id !== id);
+};
+
+const setupCartFunctionality = () => {
+  cartItemsDOM.addEventListener("click", (e) => {
+    const element = e.target;
+    const parent = e.target.parentElement;
+    const id = e.target.dataset.id;
+    const parentID = e.target.parentElement.dataset.id;
+
+    // remove
+    if (element.classList.contains("cart-item-remove-btn")) {
+      removeItems(id);
+      parent.parentElement.remove();
+    }
+    // increase
+    // decrease
+
+    displayCartItemCount();
+    displayCartTotal();
+    setStorageItem("cart", cart);
+  });
+};
 
 const init = () => {
   // display amount of cart items
